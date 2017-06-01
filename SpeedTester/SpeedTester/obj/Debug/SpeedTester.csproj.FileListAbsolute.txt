@@ -26,3 +26,18 @@ D:\workspace\PluralSight\ST\SpeedTester\SpeedTester\obj\Debug\SpeedTester.Proper
 D:\workspace\PluralSight\ST\SpeedTester\SpeedTester\obj\Debug\SpeedTester.csproj.GenerateResource.Cache
 D:\workspace\PluralSight\ST\SpeedTester\SpeedTester\obj\Debug\SpeedTester.exe
 D:\workspace\PluralSight\ST\SpeedTester\SpeedTester\obj\Debug\SpeedTester.pdb
+C:\Users\Student\Documents\Visual Studio 2015\Projects\195003\PS_SpeedTest\SpeedTester\SpeedTester\bin\Debug\SpeedTester.exe.config
+C:\Users\Student\Documents\Visual Studio 2015\Projects\195003\PS_SpeedTest\SpeedTester\SpeedTester\obj\Debug\SpeedTester.exe
+C:\Users\Student\Documents\Visual Studio 2015\Projects\195003\PS_SpeedTest\SpeedTester\SpeedTester\obj\Debug\SpeedTester.pdb
+C:\Users\Student\Documents\Visual Studio 2015\Projects\195003\PS_SpeedTest\SpeedTester\SpeedTester\bin\Debug\SpeedTester.exe
+C:\Users\Student\Documents\Visual Studio 2015\Projects\195003\PS_SpeedTest\SpeedTester\SpeedTester\bin\Debug\SpeedTester.pdb
+C:\Users\Student\Documents\Visual Studio 2015\Projects\195003\PS_SpeedTest\SpeedTester\SpeedTester\obj\Debug\SpeedTester.csprojResolveAssemblyReference.cache
+C:\Users\Student\Documents\Visual Studio 2015\Projects\195003\PS_SpeedTest\SpeedTester\SpeedTester\obj\Debug\MainWindow.g.cs
+C:\Users\Student\Documents\Visual Studio 2015\Projects\195003\PS_SpeedTest\SpeedTester\SpeedTester\obj\Debug\App.g.cs
+C:\Users\Student\Documents\Visual Studio 2015\Projects\195003\PS_SpeedTest\SpeedTester\SpeedTester\obj\Debug\SpeedTester_MarkupCompile.cache
+C:\Users\Student\Documents\Visual Studio 2015\Projects\195003\PS_SpeedTest\SpeedTester\SpeedTester\obj\Debug\SpeedTester_MarkupCompile.lref
+C:\Users\Student\Documents\Visual Studio 2015\Projects\195003\PS_SpeedTest\SpeedTester\SpeedTester\obj\Debug\MainWindow.baml
+C:\Users\Student\Documents\Visual Studio 2015\Projects\195003\PS_SpeedTest\SpeedTester\SpeedTester\obj\Debug\SpeedTester.g.resources
+C:\Users\Student\Documents\Visual Studio 2015\Projects\195003\PS_SpeedTest\SpeedTester\SpeedTester\obj\Debug\SpeedTester.Properties.Resources.resources
+C:\Users\Student\Documents\Visual Studio 2015\Projects\195003\PS_SpeedTest\SpeedTester\SpeedTester\obj\Debug\SpeedTester.csproj.GenerateResource.Cache
+C:\Users\Student\Documents\Visual Studio 2015\Projects\195003\PS_SpeedTest\SpeedTester\SpeedTester\obj\Debug\App.baml

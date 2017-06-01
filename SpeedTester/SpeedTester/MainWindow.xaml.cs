@@ -16,6 +16,10 @@ namespace SpeedTester
         {
             InitializeComponent();
             Closing += MainWindow.OnWindowClosing;
+            FrameworkElement.StyleProperty.OverrideMetadata(typeof(Window), new FrameworkPropertyMetadata
+            {
+                DefaultValue = FindResource(typeof(Window))
+            });
         }
 
         private static void OnWindowClosing(object sender, CancelEventArgs e)
@@ -91,6 +95,10 @@ namespace SpeedTester
                 running = false;
                 MessageBox.Show("Invalid ip address or port entered!", "Input error");
             }
+        }
+        private void ExitApp(object sender, RoutedEventArgs e)
+        {
+            Environment.Exit(0);
         }
     }
 }

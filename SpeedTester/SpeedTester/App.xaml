@@ -4,6 +4,26 @@
              xmlns:local="clr-namespace:SpeedTester"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Style x:Key="SpeedTesterWindow" TargetType="{x:Type Window}">
+            <Setter Property="FontFamily" Value="Comic Sans MS" />
+            <Setter Property="WindowStyle" Value="None"/>
+            <Setter Property="AllowsTransparency" Value="True"/>
+            <Setter Property="Background" Value="#333333"/>
+            <!--<Setter.Value>
+                    <LinearGradientBrush>
+                        <GradientStop Color="Aqua" Offset="0"/>
+                        <GradientStop Color="Fuchsia" Offset="0.5"/>
+                        <GradientStop Color="Gold" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>-->
+            <Setter Property="BorderBrush" Value="SteelBlue"/>
+            <Setter Property="BorderThickness" Value="5"/>
+            <Setter Property="Foreground" Value="DarkRed"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Background" Value="LightSkyBlue"/>
+        </Style>
     </Application.Resources>
 </Application>
