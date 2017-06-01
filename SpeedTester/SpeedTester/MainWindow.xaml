@@ -1,0 +1,43 @@
+﻿<Window x:Class="SpeedTester.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SpeedTester"
+        mc:Ignorable="d"
+        Title="SpeedTester" Height="350" Width="525">
+    <Grid>
+        <Grid Height="299" Margin="10,10,10,10" VerticalAlignment="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition x:Name="Row1" Height="50"/>
+                <RowDefinition x:Name="Row2" />
+            </Grid.RowDefinitions>
+            <Border BorderBrush="Black" BorderThickness="1">
+                <Grid Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" >
+                    <ComboBox x:Name="serverOrClientCB" Height="25" Margin="10,0,0,0" DropDownClosed="ChangeVisibility" HorizontalAlignment="Left">
+                        <ComboBoxItem IsSelected="True">Client</ComboBoxItem>
+                        <ComboBoxItem>Server</ComboBoxItem>
+                    </ComboBox>
+                    <Label Content="IP:" Height="25" Width="20" Margin="80,0,0,0" Name="ipLabel" HorizontalAlignment="Left"/>
+                    <TextBox Text="127.0.0.1" Height="25" Width="90" Margin="105,0,0,0" Name="ipTextBox" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Label Content="Port:" Height="25" Width="30" Margin="200,0,0,0" Name="portLabel" HorizontalAlignment="Left"/>
+                    <TextBox Text="7" Height="25" Width="60" Margin="235,0,0,0" Name="portTextBox" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                </Grid>
+            </Border>
+            <Grid x:Name="clientGrid" Grid.Column="0" Grid.Row="1" Visibility="Visible" Margin="0,10,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition x:Name="CRow1" Height="50"/>
+                        <RowDefinition x:Name="CRow2" />
+                    </Grid.RowDefinitions>
+                    <Button x:Name="clientConnectButton" Click="ClientConnect" Content="Connect" Grid.Column="0" Grid.Row="0" Height="30" Width="90" Margin="15,0,0,0" HorizontalAlignment="Left"></Button>
+                </Grid>
+            <Grid x:Name="serverGrid" Grid.Column="0" Grid.Row="1" Visibility="Hidden" Margin="0,10,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition x:Name="SRow1" Height="50"/>
+                    <RowDefinition x:Name="SRow2" />
+                </Grid.RowDefinitions>
+                <Button x:Name="serverStatusButton" Click="ChangeServerStatus" Content="Start server" Grid.Column="0" Grid.Row="0" Height="30" Width="90" Margin="15,0,0,0" HorizontalAlignment="Left"></Button>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
