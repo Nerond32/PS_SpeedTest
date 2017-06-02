@@ -13,11 +13,9 @@ namespace SpeedTester.ViewModel
     class MainWindowViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        //public ICommand ChangeMode { get { return new RelayCommand(ExecuteChangeMode); } }
-        public String IPAddress { get; set; }
+        public String IPAddress { get; set; } = "127.0.0.1";
+        public int Port { get; set; } = 7;
         private String selectedMode;
-        public int Port { get; set; }
-        private Visibility clientVisibility = Visibility.Visible, serverVisibility = Visibility.Visible;
         public String SelectedMode
         {
             get
@@ -30,10 +28,7 @@ namespace SpeedTester.ViewModel
                 ChangeMode();
             }
         }
-        private void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        private Visibility clientVisibility = Visibility.Visible, serverVisibility = Visibility.Hidden;
         public Visibility ClientVisibility
         {
             get { return clientVisibility; }
@@ -52,21 +47,22 @@ namespace SpeedTester.ViewModel
                 OnPropertyChanged("ServerVisibility");
             }
         }
+        private void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
         private void ChangeMode()
         {
-            Console.WriteLine(SelectedMode);
-            //clientVisibility = Visibility.Hidden;
-            //serverVisibility = Visibility.Hidden;
+            ClientVisibility = Visibility.Hidden;
+            ServerVisibility = Visibility.Hidden;
             if (SelectedMode == "System.Windows.Controls.ComboBoxItem: Server")
             {
-                Console.WriteLine("XXX");
-                serverVisibility = Visibility.Visible;
+                ServerVisibility = Visibility.Visible;
                 IPAddress = "127.0.0.1";
             }
             if(SelectedMode == "System.Windows.Controls.ComboBoxItem: Client")
             {
-                Console.WriteLine("YYY");
-                clientVisibility = Visibility.Visible;
+                ClientVisibility = Visibility.Visible;
             }
         }
     }

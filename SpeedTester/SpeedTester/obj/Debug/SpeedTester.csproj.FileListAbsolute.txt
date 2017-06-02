@@ -15,7 +15,6 @@ D:\workspace\PluralSight\SpeedTester\SpeedTester\obj\Debug\SpeedTester.pdb
 D:\workspace\PluralSight\ST\SpeedTester\SpeedTester\bin\Debug\SpeedTester.exe.config
 D:\workspace\PluralSight\ST\SpeedTester\SpeedTester\bin\Debug\SpeedTester.exe
 D:\workspace\PluralSight\ST\SpeedTester\SpeedTester\bin\Debug\SpeedTester.pdb
-D:\workspace\PluralSight\ST\SpeedTester\SpeedTester\obj\Debug\SpeedTester.csprojResolveAssemblyReference.cache
 D:\workspace\PluralSight\ST\SpeedTester\SpeedTester\obj\Debug\App.g.cs
 D:\workspace\PluralSight\ST\SpeedTester\SpeedTester\obj\Debug\SpeedTester_MarkupCompile.cache
 D:\workspace\PluralSight\ST\SpeedTester\SpeedTester\obj\Debug\SpeedTester_MarkupCompile.lref
@@ -46,5 +45,6 @@ D:\workspace\PluralSight\ST\SpeedTester\SpeedTester\obj\Debug\View\ServerMenu.g.
 D:\workspace\PluralSight\ST\SpeedTester\SpeedTester\obj\Debug\View\ClientMenu.baml
 D:\workspace\PluralSight\ST\SpeedTester\SpeedTester\obj\Debug\View\ServerMenu.baml
 D:\workspace\PluralSight\ST\SpeedTester\SpeedTester\obj\Debug\View\MainWindow.g.cs
-D:\workspace\PluralSight\ST\SpeedTester\SpeedTester\obj\Debug\View\ComboBoxTemplate.baml
 D:\workspace\PluralSight\ST\SpeedTester\SpeedTester\obj\Debug\View\MainWindow.baml
+D:\workspace\PluralSight\ST\SpeedTester\SpeedTester\obj\Debug\SpeedTester.csprojResolveAssemblyReference.cache
+D:\workspace\PluralSight\ST\SpeedTester\SpeedTester\obj\Debug\View\Templates\ComboBoxTemplate.baml

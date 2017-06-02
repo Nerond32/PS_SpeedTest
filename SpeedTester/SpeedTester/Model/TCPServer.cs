@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace SpeedTester
 {
-    class ServerTCP
+    class TCPServer
     {
         bool isRunning = false;
         IPAddress ipAddress;
         int port;
         Socket clientSocket;
-        public ServerTCP(IPAddress ipAddress, int port)
+        public TCPServer(IPAddress ipAddress, int port)
         {
             this.ipAddress = ipAddress;
             this.port = port;

@@ -11,7 +11,7 @@
     <Window.Resources>
         <ResourceDictionary >
         <ResourceDictionary.MergedDictionaries >
-          <ResourceDictionary Source="ComboBoxTemplate.xaml"/>
+          <ResourceDictionary Source="Templates/ComboBoxTemplate.xaml"/>
         </ResourceDictionary.MergedDictionaries>
       </ResourceDictionary>
     </Window.Resources>
@@ -20,8 +20,8 @@
 
     </Window.Style>
   <Window.DataContext>
-    <local2:MainWindowViewModel />
-  </Window.DataContext>
+        <local2:MainWindowViewModel />
+    </Window.DataContext>
     <Grid>
         <Grid Height="420" Margin="10,10,10,10" VerticalAlignment="Top">
             <Grid.RowDefinitions>

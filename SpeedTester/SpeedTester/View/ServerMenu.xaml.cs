@@ -18,35 +18,9 @@ namespace SpeedTester
 {
     public partial class ServerMenu : UserControl
     {
-        bool running = false;
         public ServerMenu()
         {
             InitializeComponent();
-        }
-
-        void ChangeServerStatus(object sender, EventArgs e)
-        {
-            try
-            {
-                if (running)
-                {
-                    running = !running;
-                    serverStatusButton.Content = "Start Server";
-                }
-                else
-                {
-                    running = true;
-                    //IPAddress ipAddress = IPAddress.Parse(((MainWindow)Application.Current.MainWindow).ipTextBox.Text);
-                    //int port = Int32.Parse(((MainWindow)Application.Current.MainWindow).portTextBox.Text);
-                    serverStatusButton.Content = "Stop Server";
-                }
-            }
-            catch
-            {
-                running = false;
-                serverStatusButton.Content = "Start Server";
-                MessageBox.Show("Invalid ip address or port entered!", "Input error");
-            }
         }
     }
 }

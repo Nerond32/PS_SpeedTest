@@ -57,19 +57,20 @@
     </ApplicationDefinition>
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
+    <Compile Include="ViewModel\ServerMenuViewModel.cs" />
     <Compile Include="View\ClientMenu.xaml.cs">
       <DependentUpon>ClientMenu.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ClientTCP.cs" />
+    <Compile Include="Model\ClientTCP.cs" />
     <Compile Include="View\ServerMenu.xaml.cs">
       <DependentUpon>ServerMenu.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ServerTCP.cs" />
+    <Compile Include="Model\TCPServer.cs" />
     <Page Include="View\ClientMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ComboBoxTemplate.xaml">
+    <Page Include="View\Templates\ComboBoxTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -117,7 +118,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Model\" />
     <Folder Include="Template\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
