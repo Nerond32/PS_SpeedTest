@@ -1,0 +1,60 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SpeedTester"
+        xmlns:local2="clr-namespace:SpeedTester.ViewModel"
+    x:Class="SpeedTester.MainWindow"
+        mc:Ignorable="d"
+        Title="SpeedTester" Height="450" Width="620">
+    <Window.Resources>
+        <ResourceDictionary >
+        <ResourceDictionary.MergedDictionaries >
+          <ResourceDictionary Source="ComboBoxTemplate.xaml"/>
+        </ResourceDictionary.MergedDictionaries>
+      </ResourceDictionary>
+    </Window.Resources>
+    <Window.Style>
+        <StaticResource ResourceKey="SpeedTesterWindow"/>
+
+    </Window.Style>
+  <Window.DataContext>
+    <local2:MainWindowViewModel />
+  </Window.DataContext>
+    <Grid>
+        <Grid Height="420" Margin="10,10,10,10" VerticalAlignment="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition x:Name="Row1" Height="60"/>
+                <RowDefinition x:Name="Row2" Height="10"/>
+                <RowDefinition x:Name="Row3" />
+            </Grid.RowDefinitions>
+            <Border BorderBrush="Black" BorderThickness="1">
+                <Grid Grid.Column="0" Grid.Row="0" Background="#222222" VerticalAlignment="Stretch">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <ComboBox SelectedValue="{Binding SelectedMode}" x:Name="serverOrClientCB" Width="100"  Height="25" Margin="20,0,0,0"  HorizontalAlignment="Left" FontSize="17" FontFamily="Helvetica" Background="Black" Foreground="Orange" Style="{DynamicResource ComboBoxStyle1}">
+                        <ComboBox.Resources>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="Black" />
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Black" />
+                        </ComboBox.Resources>
+                        <ComboBoxItem IsSelected="True" Content="Client"/>
+                        <ComboBoxItem Content="Server"/>
+                    </ComboBox>
+                    <Label Content="IP:" Height="25" Width="30" Margin="160,0,0,0" x:Name="ipLabel" HorizontalAlignment="Left"/>
+                    <TextBox Text="{Binding IPAddress}" Height="25" Width="90" Margin="195,0,0,0" x:Name="IPAddress" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Orange"/>
+                    <Label Content="Port:" Height="25" Width="45" Margin="310,0,0,0" x:Name="portLabel" HorizontalAlignment="Left"/>
+                    <TextBox Text="{Binding Port}" Height="25" Width="60" Margin="360,0,0,0" x:Name="Port" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Orange"/>
+                </Grid>
+            </Border>
+            <Border BorderBrush="Black" BorderThickness="1" Grid.Column="0" Grid.Row="2">
+                <local:ServerMenu x:Name="serverMenu"  Visibility="{Binding ServerVisibility}" Background="#222222" />
+            </Border>
+            <Border BorderBrush="Black" BorderThickness="1" Grid.Column="0" Grid.Row="2">
+                <local:ClientMenu x:Name="clientMenu"  Visibility="{Binding ClientVisibility}" Background="#222222" />
+            </Border>
+
+        </Grid>
+    </Grid>
+</Window>

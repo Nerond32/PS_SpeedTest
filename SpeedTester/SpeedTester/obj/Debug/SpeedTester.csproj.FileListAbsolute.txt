@@ -16,11 +16,9 @@ D:\workspace\PluralSight\ST\SpeedTester\SpeedTester\bin\Debug\SpeedTester.exe.co
 D:\workspace\PluralSight\ST\SpeedTester\SpeedTester\bin\Debug\SpeedTester.exe
 D:\workspace\PluralSight\ST\SpeedTester\SpeedTester\bin\Debug\SpeedTester.pdb
 D:\workspace\PluralSight\ST\SpeedTester\SpeedTester\obj\Debug\SpeedTester.csprojResolveAssemblyReference.cache
-D:\workspace\PluralSight\ST\SpeedTester\SpeedTester\obj\Debug\MainWindow.g.cs
 D:\workspace\PluralSight\ST\SpeedTester\SpeedTester\obj\Debug\App.g.cs
 D:\workspace\PluralSight\ST\SpeedTester\SpeedTester\obj\Debug\SpeedTester_MarkupCompile.cache
 D:\workspace\PluralSight\ST\SpeedTester\SpeedTester\obj\Debug\SpeedTester_MarkupCompile.lref
-D:\workspace\PluralSight\ST\SpeedTester\SpeedTester\obj\Debug\MainWindow.baml
 D:\workspace\PluralSight\ST\SpeedTester\SpeedTester\obj\Debug\SpeedTester.g.resources
 D:\workspace\PluralSight\ST\SpeedTester\SpeedTester\obj\Debug\SpeedTester.Properties.Resources.resources
 D:\workspace\PluralSight\ST\SpeedTester\SpeedTester\obj\Debug\SpeedTester.csproj.GenerateResource.Cache
@@ -41,3 +39,12 @@ C:\Users\Student\Documents\Visual Studio 2015\Projects\195003\PS_SpeedTest\Speed
 C:\Users\Student\Documents\Visual Studio 2015\Projects\195003\PS_SpeedTest\SpeedTester\SpeedTester\obj\Debug\SpeedTester.Properties.Resources.resources
 C:\Users\Student\Documents\Visual Studio 2015\Projects\195003\PS_SpeedTest\SpeedTester\SpeedTester\obj\Debug\SpeedTester.csproj.GenerateResource.Cache
 C:\Users\Student\Documents\Visual Studio 2015\Projects\195003\PS_SpeedTest\SpeedTester\SpeedTester\obj\Debug\App.baml
+D:\workspace\PluralSight\ST\SpeedTester\SpeedTester\obj\Debug\App.baml
+D:\workspace\PluralSight\ST\SpeedTester\SpeedTester\obj\Debug\GeneratedInternalTypeHelper.g.cs
+D:\workspace\PluralSight\ST\SpeedTester\SpeedTester\obj\Debug\View\ClientMenu.g.cs
+D:\workspace\PluralSight\ST\SpeedTester\SpeedTester\obj\Debug\View\ServerMenu.g.cs
+D:\workspace\PluralSight\ST\SpeedTester\SpeedTester\obj\Debug\View\ClientMenu.baml
+D:\workspace\PluralSight\ST\SpeedTester\SpeedTester\obj\Debug\View\ServerMenu.baml
+D:\workspace\PluralSight\ST\SpeedTester\SpeedTester\obj\Debug\View\MainWindow.g.cs
+D:\workspace\PluralSight\ST\SpeedTester\SpeedTester\obj\Debug\View\ComboBoxTemplate.baml
+D:\workspace\PluralSight\ST\SpeedTester\SpeedTester\obj\Debug\View\MainWindow.baml
