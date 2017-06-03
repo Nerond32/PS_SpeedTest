@@ -16,11 +16,15 @@ namespace SpeedTester.ViewModel
     public delegate void IPPortDelegate(string ipAddress, int port);
     class ServerMenuViewModel : INotifyPropertyChanged
     {
+        enum Sizes {
+            KB = 1024,
+            MB = 1024 * 1024,
+            GB = 1024 * 1024 * 1024
+        }
         private static IPPortDelegate ipPortDelegate = setIpAndPort;
-        //private static StatsUpdateDelegate statsDelegate = statsUpdate;
         private Thread tcpThread;
         private Thread udpThread;
-        private TCPServer tcpServer;
+        private Server tcpServer, udpServer;
         private bool running = false;
         private static IPAddress serverIPAddress;
         private static int serverPort;
@@ -30,8 +34,6 @@ namespace SpeedTester.ViewModel
         private String tcpTotalSize = "0";
         private String tcpTransmissionTime = "0";
         private String tcpTransmissionSpeed = "0";
-        private String tcpLostData = "0";
-        private String tcpTransmissionError = "0";
         private String udpDataSize = "0";
         private String udpTotalSize = "0";
         private String udpTransmissionTime = "0";
@@ -97,30 +99,6 @@ namespace SpeedTester.ViewModel
             {
                 tcpTransmissionSpeed = value;
                 OnPropertyChanged("TCPTransmissionSpeed");
-            }
-        }
-        public String TCPLostData
-        {
-            get
-            {
-                return tcpLostData;
-            }
-            set
-            {
-                tcpLostData = value;
-                OnPropertyChanged("TCPLostData");
-            }
-        }
-        public String TCPTransmissionError
-        {
-            get
-            {
-                return tcpTransmissionError;
-            }
-            set
-            {
-                tcpTransmissionError = value;
-                OnPropertyChanged("TCPTransmissionError");
             }
         }
         public String UDPDataSize
@@ -212,23 +190,29 @@ namespace SpeedTester.ViewModel
                 {
                     running = false;
                     tcpServer.RequestStop();
+                    udpServer.RequestStop();
                     ServerStatusButtonText = "Start Server";
                 }
                 else
                 {
+                    ResetStats();
                     running = true;
                     tcpServer = new TCPServer(serverIPAddress, serverPort);
-                    tcpServer.OnStatsUpdate += statsUpdate;
+                    tcpServer.OnStatsUpdate += tcpStatsUpdate;
                     tcpThread = new Thread(tcpServer.Run);
                     tcpThread.Start();
+                    udpServer = new UDPServer(serverIPAddress, serverPort);
+                    udpServer.OnStatsUpdate += udpStatsUpdate;
+                    udpThread = new Thread(udpServer.Run);
+                    udpThread.Start();
                     ServerStatusButtonText = "Stop Server";
                 }
             }
-            catch(InvalidAsynchronousStateException e)
+            catch
             {
                 running = false;
                 ServerStatusButtonText = "Start Server";
-                MessageBox.Show("Invalid ip address or port entered!", "Input error");
+                MessageBox.Show("Error while starting server occured!", "Input error");
             }
         }
         private static void setIpAndPort(string ipAddress, int port)
@@ -242,58 +226,51 @@ namespace SpeedTester.ViewModel
             }
             catch { }
         }
-        private void statsUpdate(ServerStats serverStats)
+        #region StatsManagement
+        private void tcpStatsUpdate(ServerStats serverStats)
         {
-            TCPDataSize = serverStats.TCPDataSize;
-            TCPTotalSize = serverStats.TCPTotalSize;
-            TCPTransmissionTime = serverStats.TCPTransmissionTime;
-            TCPTransmissionSpeed = serverStats.TCPTransmissionSpeed;
-            TCPLostData = serverStats.TCPLostData;
-            TCPTransmissionError = serverStats.TCPTransmissionError;
-            UDPDataSize = serverStats.UDPDataSize;
-            UDPTotalSize = serverStats.UDPTotalSize;
-            UDPTransmissionTime = serverStats.UDPTransmissionTime;
-            UDPTransmissionSpeed = serverStats.UDPTransmissionSpeed;
-            UDPLostData = serverStats.UDPLostData;
-            UDPTransmissionError = serverStats.UDPTransmissionError;
-            recalculateStats("kb");
+            recalculateStats(serverStats, (int)Sizes.KB);
+            TCPDataSize = serverStats.DataSize.ToString();
+            TCPTotalSize = serverStats.TotalSize.ToString();
+            TCPTransmissionTime = serverStats.TransmissionTime.ToString();
+            TCPTransmissionSpeed = serverStats.TransmissionSpeed.ToString();
         }
-        private void recalculateStats(String size)
+        private void udpStatsUpdate(ServerStats serverStats)
         {
-            switch(size)
-            {
-                case "b": break;
-                case "kb":
-                    {
-                        divideBySize(1024);
-                        break;
-                    }
-                case "mb":
-                    {
-                        divideBySize(1024 * 1024);
-                        break;
-                    }
-                case "gb":
-                    {
-                        divideBySize(1024 * 1024 * 1024);
-                        break;
-                    }
-            }
-            if (Int32.Parse(TCPTransmissionTime) != 0)
-            {
-                TCPTransmissionSpeed = (Int32.Parse(TCPTotalSize) / Int32.Parse(TCPTransmissionTime)).ToString();
-            }
-            if (Int32.Parse(UDPTransmissionTime) != 0)
-            {
-                UDPTransmissionSpeed = (Int32.Parse(UDPTotalSize) / Int32.Parse(UDPTransmissionTime)).ToString();
-            }
+            recalculateStats(serverStats, (int)Sizes.KB);
+            UDPDataSize = serverStats.DataSize.ToString();
+            UDPTotalSize = serverStats.TotalSize.ToString();
+            UDPTransmissionTime = serverStats.TransmissionTime.ToString();
+            UDPTransmissionSpeed = serverStats.TransmissionSpeed.ToString();
+            UDPLostData = serverStats.LostData.ToString();
+            UDPTransmissionError = serverStats.TransmissionError.ToString();
         }
-        private void divideBySize(int size)
+        private void ResetStats()
         {
-            TCPTotalSize = (Int32.Parse(TCPTotalSize) / size).ToString();
-            TCPTransmissionTime = (Int32.Parse(TCPTransmissionTime) / size).ToString();
-            UDPTotalSize = (Int32.Parse(UDPTotalSize) / size).ToString();
-            UDPTransmissionTime = (Int32.Parse(UDPTransmissionTime) / size).ToString();
+            TCPDataSize = "0";
+            TCPTotalSize = "0";
+            TCPTransmissionTime = "0";
+            TCPTransmissionSpeed = "0";
+            UDPDataSize = "0";
+            UDPTotalSize = "0";
+            UDPTransmissionTime = "0";
+            UDPTransmissionSpeed = "0";
+            UDPLostData = "0";
+            UDPTransmissionError = "0";
         }
+        private void recalculateStats(ServerStats serverStats, int size)
+        {
+            if (serverStats.TransmissionTime != 0)
+            {
+                int speed = (int)((float)serverStats.TotalSize  / ((float)serverStats.TransmissionTime / 1000));
+                serverStats.TransmissionSpeed = speed;
+            }
+            if (size > 0)
+            {
+                serverStats.TotalSize /= size;
+                serverStats.TransmissionSpeed /= size;
+            }
+        }
+        #endregion
     }
 }

@@ -7,35 +7,24 @@ using System.Text;
 namespace SpeedTester
 {
     public delegate void StatsUpdateDelegate(ServerStats serverStats);
-    class TCPServer
+    class TCPServer : Server
     {
-        public StatsUpdateDelegate OnStatsUpdate;
-        bool isRunning = false;
-        IPAddress ipAddress;
-        int port;
-        Socket serverSocket;
-        Socket clientSocket;
-        ServerStats tcpStats;
-        public TCPServer(IPAddress ipAddress, int port)
-        {
-            this.ipAddress = ipAddress;
-            this.port = port;
-        }
-
-        public Socket InitServer()
+        protected Socket serverSocket;
+        protected Socket clientSocket;
+        public TCPServer(IPAddress ipAddress, int port) : base(ipAddress, port) { }
+        public Socket InitSocket()
         {
             Socket newSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             IPEndPoint localEndPoint = new IPEndPoint(ipAddress, port);
             newSocket.Bind(localEndPoint);
             return newSocket;
         }
-
-        public void Run()
+        public override void Run()
         {
             isRunning = true;
             try
             {
-                serverSocket = InitServer();
+                serverSocket = InitSocket();
                 serverSocket.Listen(10);
                 while (isRunning)
                 {
@@ -46,9 +35,8 @@ namespace SpeedTester
                         int length = clientSocket.Receive(fromClient);
                         int dataSize = Int32.Parse(Encoding.UTF8.GetString(fromClient).Substring(5, length));
                         clientSocket.ReceiveBufferSize = dataSize;
-                        Console.WriteLine("Message received from client: " + dataSize);
-                        tcpStats = new ServerStats();
-                        tcpStats.TCPDataSize = dataSize.ToString();
+                        serverStats = new ServerStats();
+                        serverStats.DataSize = dataSize;
                         ClientHandling(dataSize);
                     }
                     catch { }
@@ -61,25 +49,28 @@ namespace SpeedTester
             }
         }
 
-        public void RequestStop()
+        public override void RequestStop()
         {
             isRunning = false;
-            serverSocket.Close();
+            if (serverSocket != null)
+            {
+                serverSocket.Close();
+            }
         }
 
-        private void ClientHandling (int dataSize)
+        protected void ClientHandling (int dataSize)
         {
             byte[] fromClient = new byte[dataSize];
-            tcpStats.TCPDataSize = dataSize.ToString();
+            serverStats.DataSize = dataSize;
             var watch = System.Diagnostics.Stopwatch.StartNew();
             try
             {
                 while (!(clientSocket.Poll(1, SelectMode.SelectRead) && clientSocket.Available == 0))
                 {
-                    tcpStats.TCPTotalSize = (Int32.Parse(tcpStats.TCPTotalSize) + dataSize).ToString();
+                    serverStats.TotalSize = serverStats.TotalSize + dataSize;
                     clientSocket.Receive(fromClient);
-                    tcpStats.TCPTransmissionTime = watch.ElapsedMilliseconds.ToString();
-                    OnStatsUpdate(tcpStats);
+                    serverStats.TransmissionTime = (int)watch.ElapsedMilliseconds;
+                    OnStatsUpdate(serverStats.ShallowCopy());
                 }
             }
             catch(SocketException) { }
