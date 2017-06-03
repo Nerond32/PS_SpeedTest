@@ -1,59 +1,88 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using SpeedTester.Model;
+using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace SpeedTester
 {
+    public delegate void StatsUpdateDelegate(ServerStats serverStats);
     class TCPServer
     {
+        public StatsUpdateDelegate OnStatsUpdate;
         bool isRunning = false;
         IPAddress ipAddress;
         int port;
+        Socket serverSocket;
         Socket clientSocket;
+        ServerStats tcpStats;
         public TCPServer(IPAddress ipAddress, int port)
         {
             this.ipAddress = ipAddress;
             this.port = port;
         }
+
         public Socket InitServer()
         {
-            Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            Socket newSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             IPEndPoint localEndPoint = new IPEndPoint(ipAddress, port);
-            s.Bind(localEndPoint);
-            return s;
+            newSocket.Bind(localEndPoint);
+            return newSocket;
         }
+
         public void Run()
         {
             isRunning = true;
-            Socket serverSocket = InitServer();
-            Console.WriteLine("Starting server at: " + serverSocket.LocalEndPoint);
-            serverSocket.Listen(10);
-            while (isRunning)
+            try
             {
-                Console.WriteLine("Waiting for new connection.");
-                clientSocket = serverSocket.Accept();
-                Console.WriteLine("Connection accepted from " + clientSocket.RemoteEndPoint.ToString());
-                byte[] fromServer = new byte[clientSocket.ReceiveBufferSize];
-                int length = clientSocket.Receive(fromServer);
-                String ts = Encoding.UTF8.GetString(fromServer).Substring(0, length);
-                Console.WriteLine("Message received from client: " + ts);
-                clientSocket.Send(Encoding.UTF8.GetBytes(ts));
-                clientSocket.Close();
+                serverSocket = InitServer();
+                serverSocket.Listen(10);
+                while (isRunning)
+                {
+                    clientSocket = serverSocket.Accept();
+                    try
+                    {
+                        byte[] fromClient = new byte[clientSocket.ReceiveBufferSize];
+                        int length = clientSocket.Receive(fromClient);
+                        int dataSize = Int32.Parse(Encoding.UTF8.GetString(fromClient).Substring(5, length));
+                        clientSocket.ReceiveBufferSize = dataSize;
+                        Console.WriteLine("Message received from client: " + dataSize);
+                        tcpStats = new ServerStats();
+                        tcpStats.TCPDataSize = dataSize.ToString();
+                        ClientHandling(dataSize);
+                    }
+                    catch { }
+                    clientSocket.Close();
+                }
             }
-            serverSocket.Close();
-            Console.ReadLine();
+            catch
+            {
+                isRunning = false;
+            }
         }
+
         public void RequestStop()
         {
             isRunning = false;
-            //clientSocket.Shutdown(SocketShutdown.Both);
-            //clientSocket.Close();
-            //clientSocket.LingerState = new LingerOption(true, 0);
-            //clientSocket.Close();
+            serverSocket.Close();
+        }
+
+        private void ClientHandling (int dataSize)
+        {
+            byte[] fromClient = new byte[dataSize];
+            tcpStats.TCPDataSize = dataSize.ToString();
+            var watch = System.Diagnostics.Stopwatch.StartNew();
+            try
+            {
+                while (!(clientSocket.Poll(1, SelectMode.SelectRead) && clientSocket.Available == 0))
+                {
+                    tcpStats.TCPTotalSize = (Int32.Parse(tcpStats.TCPTotalSize) + dataSize).ToString();
+                    clientSocket.Receive(fromClient);
+                    tcpStats.TCPTransmissionTime = watch.ElapsedMilliseconds.ToString();
+                    OnStatsUpdate(tcpStats);
+                }
+            }
+            catch(SocketException) { }
         }
     }
 }

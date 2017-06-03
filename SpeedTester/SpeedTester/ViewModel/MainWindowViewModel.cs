@@ -12,10 +12,39 @@ namespace SpeedTester.ViewModel
 {
     class MainWindowViewModel : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-        public String IPAddress { get; set; } = "127.0.0.1";
-        public int Port { get; set; } = 7;
         private String selectedMode;
+        private String ipAddress = "127.0.0.1";
+        private int port = 7;
+        private Visibility clientVisibility = Visibility.Visible;
+        private Visibility serverVisibility = Visibility.Hidden;
+        public event PropertyChangedEventHandler PropertyChanged;
+        #region Properties
+        public String IPAddress
+        {
+            get
+            {
+                return ipAddress;
+            }
+            set
+            {
+                ipAddress = value;
+                OnPropertyChanged("IPAddress");
+                ServerMenuViewModel.IpPortDelegate(IPAddress, Port);
+            }
+        }
+        public int Port
+        {
+            get
+            {
+                return port;
+            }
+            set
+            {
+                port = value;
+                OnPropertyChanged("Port");
+                ServerMenuViewModel.IpPortDelegate(IPAddress, Port);
+            }
+        }
         public String SelectedMode
         {
             get
@@ -28,7 +57,6 @@ namespace SpeedTester.ViewModel
                 ChangeMode();
             }
         }
-        private Visibility clientVisibility = Visibility.Visible, serverVisibility = Visibility.Hidden;
         public Visibility ClientVisibility
         {
             get { return clientVisibility; }
@@ -47,6 +75,7 @@ namespace SpeedTester.ViewModel
                 OnPropertyChanged("ServerVisibility");
             }
         }
+        #endregion
         private void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

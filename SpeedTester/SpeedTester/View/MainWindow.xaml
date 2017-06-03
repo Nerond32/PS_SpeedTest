@@ -54,7 +54,6 @@
             <Border BorderBrush="Black" BorderThickness="1" Grid.Column="0" Grid.Row="2">
                 <local:ClientMenu x:Name="clientMenu"  Visibility="{Binding ClientVisibility}" Background="#222222" />
             </Border>
-
         </Grid>
     </Grid>
 </Window>

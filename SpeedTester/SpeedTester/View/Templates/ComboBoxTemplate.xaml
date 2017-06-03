@@ -13,7 +13,7 @@
         </Setter>
     </Style>
     <SolidColorBrush x:Key="ComboBox.Static.Background" Color="Black"/>
-    <SolidColorBrush x:Key="ComboBox.Static.Border" Color="#FFACACAC"/>
+    <SolidColorBrush x:Key="ComboBox.Static.Border" Color="Orange"/>
     <SolidColorBrush x:Key="ComboBox.Static.Editable.Background" Color="#FFFFFFFF"/>
     <SolidColorBrush x:Key="ComboBox.Static.Editable.Border" Color="#FFABADB3"/>
     <SolidColorBrush x:Key="ComboBox.Static.Editable.Button.Background" Color="Transparent"/>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SpeedTester.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -12,12 +13,17 @@ using System.Windows.Input;
 
 namespace SpeedTester.ViewModel
 {
+    public delegate void IPPortDelegate(string ipAddress, int port);
     class ServerMenuViewModel : INotifyPropertyChanged
     {
+        private static IPPortDelegate ipPortDelegate = setIpAndPort;
+        //private static StatsUpdateDelegate statsDelegate = statsUpdate;
         private Thread tcpThread;
         private Thread udpThread;
         private TCPServer tcpServer;
         private bool running = false;
+        private static IPAddress serverIPAddress;
+        private static int serverPort;
         #region Binding Strings
         private string serverStatusButtonText = "Start server";
         private String tcpDataSize = "0";
@@ -191,7 +197,9 @@ namespace SpeedTester.ViewModel
         }
         #endregion 
         public event PropertyChangedEventHandler PropertyChanged;
+        public static IPPortDelegate IpPortDelegate { get => ipPortDelegate; set => ipPortDelegate = value; }
         public ICommand StartStopServer { get { return new RelayCommand(Run); } }
+
         private void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -203,25 +211,89 @@ namespace SpeedTester.ViewModel
                 if (running)
                 {
                     running = false;
+                    tcpServer.RequestStop();
                     ServerStatusButtonText = "Start Server";
                 }
                 else
                 {
                     running = true;
-                    //IPAddress ipAddress = IPAddress.Parse(((MainWindow)Application.Current.MainWindow).ipTextBox.Text);
-                    //int port = Int32.Parse(((MainWindow)Application.Current.MainWindow).portTextBox.Text);
-                    tcpServer = new TCPServer(IPAddress.Parse("127.0.0.1"), 7);
+                    tcpServer = new TCPServer(serverIPAddress, serverPort);
+                    tcpServer.OnStatsUpdate += statsUpdate;
                     tcpThread = new Thread(tcpServer.Run);
                     tcpThread.Start();
                     ServerStatusButtonText = "Stop Server";
                 }
             }
-            catch
+            catch(InvalidAsynchronousStateException e)
             {
                 running = false;
                 ServerStatusButtonText = "Start Server";
                 MessageBox.Show("Invalid ip address or port entered!", "Input error");
             }
+        }
+        private static void setIpAndPort(string ipAddress, int port)
+        {
+            try
+            {
+                IPAddress tmpAddress = IPAddress.Parse(ipAddress);
+                int tmpPort = port;
+                serverIPAddress = tmpAddress;
+                serverPort = tmpPort;
+            }
+            catch { }
+        }
+        private void statsUpdate(ServerStats serverStats)
+        {
+            TCPDataSize = serverStats.TCPDataSize;
+            TCPTotalSize = serverStats.TCPTotalSize;
+            TCPTransmissionTime = serverStats.TCPTransmissionTime;
+            TCPTransmissionSpeed = serverStats.TCPTransmissionSpeed;
+            TCPLostData = serverStats.TCPLostData;
+            TCPTransmissionError = serverStats.TCPTransmissionError;
+            UDPDataSize = serverStats.UDPDataSize;
+            UDPTotalSize = serverStats.UDPTotalSize;
+            UDPTransmissionTime = serverStats.UDPTransmissionTime;
+            UDPTransmissionSpeed = serverStats.UDPTransmissionSpeed;
+            UDPLostData = serverStats.UDPLostData;
+            UDPTransmissionError = serverStats.UDPTransmissionError;
+            recalculateStats("kb");
+        }
+        private void recalculateStats(String size)
+        {
+            switch(size)
+            {
+                case "b": break;
+                case "kb":
+                    {
+                        divideBySize(1024);
+                        break;
+                    }
+                case "mb":
+                    {
+                        divideBySize(1024 * 1024);
+                        break;
+                    }
+                case "gb":
+                    {
+                        divideBySize(1024 * 1024 * 1024);
+                        break;
+                    }
+            }
+            if (Int32.Parse(TCPTransmissionTime) != 0)
+            {
+                TCPTransmissionSpeed = (Int32.Parse(TCPTotalSize) / Int32.Parse(TCPTransmissionTime)).ToString();
+            }
+            if (Int32.Parse(UDPTransmissionTime) != 0)
+            {
+                UDPTransmissionSpeed = (Int32.Parse(UDPTotalSize) / Int32.Parse(UDPTransmissionTime)).ToString();
+            }
+        }
+        private void divideBySize(int size)
+        {
+            TCPTotalSize = (Int32.Parse(TCPTotalSize) / size).ToString();
+            TCPTransmissionTime = (Int32.Parse(TCPTransmissionTime) / size).ToString();
+            UDPTotalSize = (Int32.Parse(UDPTotalSize) / size).ToString();
+            UDPTransmissionTime = (Int32.Parse(UDPTransmissionTime) / size).ToString();
         }
     }
 }
