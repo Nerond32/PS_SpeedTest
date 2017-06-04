@@ -11,7 +11,7 @@ namespace SpeedTester.Model
 {
     class UDPClient : ClientBase
     {
-        public UDPClient(IPAddress ipAddress, int port, int bufferSize) : base(ipAddress, port, bufferSize) { }
+        public UDPClient(IPAddress ipAddress, int port, int bufferSize, bool nagleAlgorithmEnabled) : base(ipAddress, port, bufferSize, nagleAlgorithmEnabled) { }
         public override void RequestStop()
         {
             isRunning = false;
@@ -23,9 +23,10 @@ namespace SpeedTester.Model
             clientSocket.Close();
         }
 
-        protected override Socket InitConnectionSocket()
+        protected override Socket InitConnectionSocket(bool nagleAlgorithmEnabled)
         {
             Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+            s.NoDelay = !nagleAlgorithmEnabled;
             return s;
         }
 

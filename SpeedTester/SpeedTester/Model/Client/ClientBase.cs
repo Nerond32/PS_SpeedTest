@@ -17,15 +17,15 @@ namespace SpeedTester.Model.Client
         protected int port;
         protected Socket clientSocket;
         protected int bufferSize;
-        public ClientBase(IPAddress ipAddress, int port, int bufferSize)
+        public ClientBase(IPAddress ipAddress, int port, int bufferSize, bool nagleAlgorithmEnabled)
         {
             this.ipAddress = ipAddress;
             this.port = port;
             this.bufferSize = bufferSize;
-            clientSocket = InitConnectionSocket();
+            clientSocket = InitConnectionSocket(nagleAlgorithmEnabled);
         }
         public abstract void Run();
         public abstract void RequestStop();
-        protected abstract Socket InitConnectionSocket();
+        protected abstract Socket InitConnectionSocket(bool nagleAlgorithmEnabled);
     }
 }

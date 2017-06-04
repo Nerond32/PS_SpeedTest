@@ -8,7 +8,7 @@ namespace SpeedTester
 {
     class TCPClient : ClientBase
     {
-        public TCPClient(IPAddress ipAddress, int port, int bufferSize) : base(ipAddress, port, bufferSize) { }
+        public TCPClient(IPAddress ipAddress, int port, int bufferSize, bool nagleAlgorithmEnabled) : base(ipAddress, port, bufferSize, nagleAlgorithmEnabled) { }
         public override void RequestStop()
         {
             isRunning = false;
@@ -27,9 +27,10 @@ namespace SpeedTester
             clientSocket.Close();
         }
 
-        protected override Socket InitConnectionSocket()
+        protected override Socket InitConnectionSocket(bool nagleAlgorithmEnabled)
         {
             Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            s.NoDelay = !nagleAlgorithmEnabled;
             s.Connect(ipAddress, port);
             return s;
         }

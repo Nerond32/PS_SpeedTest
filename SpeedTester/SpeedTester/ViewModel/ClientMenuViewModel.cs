@@ -19,6 +19,7 @@ namespace SpeedTester.ViewModel
         private UDPClient udpClient;
         private Thread tcpThread, udpThread;
         private bool isRunning;
+        private bool nagleAlgorithmEnabled = true;
         private static IPAddress clientIPAddress = IPAddress.Parse("127.0.0.1");
         private static int clientPort = 7;
         private string startStopClientText = "Start";
@@ -29,6 +30,17 @@ namespace SpeedTester.ViewModel
         public ICommand StartStopClient { get { return new RelayCommand(StartClients); } }
         private int bufferSize;
         #region Properties
+        public bool NagleAlgorithmEnabled
+        {
+            get
+            {
+                return nagleAlgorithmEnabled;
+            }
+            set
+            {
+                nagleAlgorithmEnabled = value;
+            }
+        }
         public int BufferSize
         {
             get
@@ -99,7 +111,7 @@ namespace SpeedTester.ViewModel
         {
             try
             {
-                tcpClient = new TCPClient(clientIPAddress, clientPort, BufferSize);
+                tcpClient = new TCPClient(clientIPAddress, clientPort, BufferSize, NagleAlgorithmEnabled);
                 tcpClient.OnBrokenConnection += BrokenTCPConnection;
                 tcpThread = new Thread(tcpClient.Run);
                 tcpThread.Start();
@@ -118,14 +130,14 @@ namespace SpeedTester.ViewModel
         }
         private void StartClientUDP()
         {
-            udpClient = new UDPClient(clientIPAddress, clientPort, BufferSize);
+            udpClient = new UDPClient(clientIPAddress, clientPort, BufferSize, NagleAlgorithmEnabled);
             udpThread = new Thread(udpClient.Run);
             udpThread.Start();
             UDPStatusText = "UDP: Working";
         }
         private void StopUDP()
         {
-
+            udpClient.RequestStop();
             UDPStatusText = "UDP: Stopped";
         }
         private static void setIpAndPort(string ipAddress, int port)
