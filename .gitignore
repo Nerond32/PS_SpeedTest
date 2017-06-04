@@ -34,5 +34,6 @@
 *.lref
 *.log
 *.tlog
-
+*.g.cs
+*.g.i.cs
 .vs/

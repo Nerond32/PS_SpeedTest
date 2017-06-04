@@ -30,6 +30,7 @@ namespace SpeedTester.ViewModel
                 ipAddress = value;
                 OnPropertyChanged("IPAddress");
                 ServerMenuViewModel.IpPortDelegate(IPAddress, Port);
+                ClientMenuViewModel.IpPortDelegate(IPAddress, Port);
             }
         }
         public int Port
@@ -43,6 +44,7 @@ namespace SpeedTester.ViewModel
                 port = value;
                 OnPropertyChanged("Port");
                 ServerMenuViewModel.IpPortDelegate(IPAddress, Port);
+                ClientMenuViewModel.IpPortDelegate(IPAddress, Port);
             }
         }
         public String SelectedMode

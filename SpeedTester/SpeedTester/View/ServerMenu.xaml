@@ -11,18 +11,11 @@
         <local2:ServerMenuViewModel/>
     </UserControl.DataContext>
     <UserControl.Resources>
-        <Style TargetType="TextBox">
-            <Setter Property="Foreground" Value="Orange"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Background" Value="Black" />
+        <Style BasedOn="{StaticResource Base}" TargetType="TextBox">
             <Setter Property="Width" Value="100" />
             <Setter Property="Height" Value="28" />
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="TextAlignment" Value="Right"/>
-            <Setter Property="BorderBrush" Value="Orange"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Padding" Value="0,0,8,3"/>
+            <Setter Property="Padding" Value="0,0,5,3"/>
             <Setter Property="IsReadOnly" Value="True"/>
             <Setter Property="Template">
                 <Setter.Value>

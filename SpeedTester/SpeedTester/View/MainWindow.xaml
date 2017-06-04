@@ -7,7 +7,7 @@
         xmlns:local2="clr-namespace:SpeedTester.ViewModel"
     x:Class="SpeedTester.MainWindow"
         mc:Ignorable="d"
-        Title="SpeedTester" Height="450" Width="620">
+        Title="SpeedTester" Height="450" Width="600">
     <Window.Resources>
         <ResourceDictionary >
         <ResourceDictionary.MergedDictionaries >
@@ -27,8 +27,11 @@
             <Grid.RowDefinitions>
                 <RowDefinition x:Name="Row1" Height="60"/>
                 <RowDefinition x:Name="Row2" Height="10"/>
-                <RowDefinition x:Name="Row3" />
+                <RowDefinition x:Name="Row3" Height="350"/>
             </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="560"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
             <Border BorderBrush="Black" BorderThickness="1">
                 <Grid Grid.Column="0" Grid.Row="0" Background="#222222" VerticalAlignment="Stretch">
                     <Grid.RowDefinitions>
@@ -48,11 +51,15 @@
                     <TextBox Text="{Binding Port}" Height="25" Width="60" Margin="360,0,0,0" x:Name="Port" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Orange"/>
                 </Grid>
             </Border>
-            <Border BorderBrush="Black" BorderThickness="1" Grid.Column="0" Grid.Row="2">
-                <local:ServerMenu x:Name="serverMenu"  Visibility="{Binding ServerVisibility}" Background="#222222" />
+            <Border BorderBrush="Black" BorderThickness="1" Grid.Column="0" Grid.Row="2" >
+                <Grid Visibility="{Binding ServerVisibility}">
+                    <local:ServerMenu x:Name="serverMenu"   Background="#222222" />
+                </Grid>
             </Border>
             <Border BorderBrush="Black" BorderThickness="1" Grid.Column="0" Grid.Row="2">
-                <local:ClientMenu x:Name="clientMenu"  Visibility="{Binding ClientVisibility}" Background="#222222" />
+                <Grid Visibility="{Binding ClientVisibility}">
+                    <local:ClientMenu x:Name="clientMenu"  Background="#222222" />
+                </Grid>
             </Border>
         </Grid>
     </Grid>
