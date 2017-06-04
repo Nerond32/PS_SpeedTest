@@ -7,7 +7,7 @@ using System.Text;
 namespace SpeedTester
 {
     public delegate void StatsUpdateDelegate(ServerStats serverStats);
-    class TCPServer : Server
+    class TCPServer : ServerBase
     {
         protected Socket serverSocket;
         protected Socket clientSocket;

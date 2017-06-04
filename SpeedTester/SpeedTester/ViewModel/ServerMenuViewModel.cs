@@ -24,7 +24,7 @@ namespace SpeedTester.ViewModel
         private static IPPortDelegate ipPortDelegate = setIpAndPort;
         private Thread tcpThread;
         private Thread udpThread;
-        private Server tcpServer, udpServer;
+        private ServerBase tcpServer, udpServer;
         private bool running = false;
         private static IPAddress serverIPAddress;
         private static int serverPort;

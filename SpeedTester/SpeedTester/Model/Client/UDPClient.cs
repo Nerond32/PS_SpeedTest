@@ -5,38 +5,31 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using SpeedTester.Model.Client;
 
 namespace SpeedTester.Model
 {
-    class UDPClient
+    class UDPClient : ClientBase
     {
-        bool isRunning = false;
-        IPAddress ipAddress;
-        int port;
-        Socket clientSocket;
-        int bufferSize;
-
-        public UDPClient(IPAddress ipAddress, int port, int bufferSize)
+        public UDPClient(IPAddress ipAddress, int port, int bufferSize) : base(ipAddress, port, bufferSize) { }
+        public override void RequestStop()
         {
-            this.ipAddress = ipAddress;
-            this.port = port;
-            this.bufferSize = bufferSize;
-            clientSocket = InitConnectionSocket();
+            isRunning = false;
         }
 
-        public Socket InitConnectionSocket()
-        {
-            Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-            return s;
-        }
-
-        public void Run()
+        public override void Run()
         {
             WorkWithServer(bufferSize);
             clientSocket.Close();
         }
 
-        public void WorkWithServer(int bufferSize)
+        protected override Socket InitConnectionSocket()
+        {
+            Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+            return s;
+        }
+
+        private void WorkWithServer(int bufferSize)
         {
             isRunning = true;
             IPEndPoint sending_end_points = new IPEndPoint(ipAddress, port);
@@ -49,7 +42,8 @@ namespace SpeedTester.Model
                 clientSocket.SendTo(bufferContent, bufferSize, SocketFlags.None, sending_end_points);
             } while (isRunning);
         }
-        private static string GenerateContent(int bufferSize)
+
+        private string GenerateContent(int bufferSize)
         {
             string content = "";
             for (int i = 0; i < bufferSize; i++)
@@ -57,11 +51,6 @@ namespace SpeedTester.Model
                 content += "X";
             }
             return content;
-        }
-
-        public void RequestStop()
-        {
-            isRunning = false;
         }
     }
 }

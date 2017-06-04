@@ -7,7 +7,7 @@ using System.Text;
 namespace SpeedTester.Model
 {
     public delegate void StatsUpdateDelegate(ServerStats serverStats);
-    class UDPServer : Server
+    class UDPServer : ServerBase
     {
         protected UdpClient listener;
         public UDPServer(IPAddress ipAddress, int port) :base(ipAddress, port) { }

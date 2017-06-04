@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace SpeedTester.Model
 {
-    abstract class Server
+    abstract class ServerBase
     {
         public StatsUpdateDelegate OnStatsUpdate;
         protected ServerStats serverStats;
         protected bool isRunning = false;
         protected IPAddress ipAddress;
         protected int port;
-        public Server(IPAddress ipAddress, int port)
+        public ServerBase(IPAddress ipAddress, int port)
         {
             this.ipAddress = ipAddress;
             this.port = port;

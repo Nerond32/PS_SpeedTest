@@ -1,39 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using SpeedTester.Model.Client;
+using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace SpeedTester
 {
-    public delegate void OnBrokenConnection();
-    class TCPClient
+    class TCPClient : ClientBase
     {
-        public OnBrokenConnection OnBrokenConnection;
-        bool isRunning = false;
-        IPAddress ipAddress;
-        int port;
-        Socket clientSocket;
-        int bufferSize;
-
-        public TCPClient(IPAddress ipAddress, int port, int bufferSize)
+        public TCPClient(IPAddress ipAddress, int port, int bufferSize) : base(ipAddress, port, bufferSize) { }
+        public override void RequestStop()
         {
-            this.ipAddress = ipAddress;
-            this.port = port;
-            this.bufferSize = bufferSize;
-            clientSocket = InitConnectionSocket();
+            isRunning = false;
         }
 
-        public Socket InitConnectionSocket()
-        {
-            Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            s.Connect(ipAddress, port);
-            return s;
-        }
-
-        public void Run()
+        public override void Run()
         {
             try
             {
@@ -46,7 +27,14 @@ namespace SpeedTester
             clientSocket.Close();
         }
 
-        public void WorkWithServer(int bufferSize)
+        protected override Socket InitConnectionSocket()
+        {
+            Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            s.Connect(ipAddress, port);
+            return s;
+        }
+
+        private void WorkWithServer(int bufferSize)
         {
             isRunning = true;
             String ts = "SIZE:"+bufferSize;
@@ -58,6 +46,7 @@ namespace SpeedTester
                 clientSocket.Send(bufferContent);
             } while (isRunning);
         }
+
         private static string GenerateContent(int bufferSize)
         {
             string content="";
@@ -66,11 +55,6 @@ namespace SpeedTester
                 content += "X";
             }
             return content;
-        }
-
-        public void RequestStop()
-        {
-            isRunning = false;
         }
     }
 }

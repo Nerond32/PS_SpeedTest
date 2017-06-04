@@ -55,10 +55,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Model\Server.cs" />
-    <Compile Include="Model\ServerStats.cs" />
-    <Compile Include="Model\UDPClient.cs" />
-    <Compile Include="Model\UDPServer.cs" />
+    <Compile Include="Model\Client\ClientBase.cs" />
+    <Compile Include="Model\Server\ServerBase.cs" />
+    <Compile Include="Model\Server\ServerStats.cs" />
+    <Compile Include="Model\Client\UDPClient.cs" />
+    <Compile Include="Model\Server\UDPServer.cs" />
     <Compile Include="ViewModel\ClientMenuViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
@@ -66,11 +67,11 @@
     <Compile Include="View\ClientMenu.xaml.cs">
       <DependentUpon>ClientMenu.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model\TCPClient.cs" />
+    <Compile Include="Model\Client\TCPClient.cs" />
     <Compile Include="View\ServerMenu.xaml.cs">
       <DependentUpon>ServerMenu.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model\TCPServer.cs" />
+    <Compile Include="Model\Server\TCPServer.cs" />
     <Page Include="View\ClientMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
