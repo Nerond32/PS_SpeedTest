@@ -6,19 +6,17 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SpeedTester
+namespace SpeedTester.Model
 {
-    public delegate void OnBrokenConnection();
-    class TCPClient
+    class UDPClient
     {
-        public OnBrokenConnection OnBrokenConnection;
         bool isRunning = false;
         IPAddress ipAddress;
         int port;
         Socket clientSocket;
         int bufferSize;
 
-        public TCPClient(IPAddress ipAddress, int port, int bufferSize)
+        public UDPClient(IPAddress ipAddress, int port, int bufferSize)
         {
             this.ipAddress = ipAddress;
             this.port = port;
@@ -28,40 +26,33 @@ namespace SpeedTester
 
         public Socket InitConnectionSocket()
         {
-            Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            s.Connect(ipAddress, port);
+            Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             return s;
         }
 
         public void Run()
         {
-            try
-            {
-                WorkWithServer(bufferSize);
-            }
-            catch (SocketException e)
-            {
-                OnBrokenConnection();
-            }
+            WorkWithServer(bufferSize);
             clientSocket.Close();
         }
 
         public void WorkWithServer(int bufferSize)
         {
             isRunning = true;
-            String ts = "SIZE:"+bufferSize;
+            IPEndPoint sending_end_points = new IPEndPoint(ipAddress, port);
+            String ts = "SIZE:" + bufferSize;
             byte[] toServer = Encoding.UTF8.GetBytes(ts);
-            clientSocket.Send(toServer);
+            clientSocket.SendTo(toServer, sending_end_points);
             byte[] bufferContent = Encoding.UTF8.GetBytes(GenerateContent(bufferSize));
             do
             {
-                clientSocket.Send(bufferContent);
+                clientSocket.SendTo(bufferContent, bufferSize, SocketFlags.None, sending_end_points);
             } while (isRunning);
         }
         private static string GenerateContent(int bufferSize)
         {
-            string content="";
-            for(int i = 0; i < bufferSize; i++)
+            string content = "";
+            for (int i = 0; i < bufferSize; i++)
             {
                 content += "X";
             }

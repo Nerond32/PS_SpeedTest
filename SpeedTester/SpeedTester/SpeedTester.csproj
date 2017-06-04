@@ -57,6 +57,7 @@
     </ApplicationDefinition>
     <Compile Include="Model\Server.cs" />
     <Compile Include="Model\ServerStats.cs" />
+    <Compile Include="Model\UDPClient.cs" />
     <Compile Include="Model\UDPServer.cs" />
     <Compile Include="ViewModel\ClientMenuViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
