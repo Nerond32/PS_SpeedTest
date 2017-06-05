@@ -6,6 +6,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using SpeedTester.Model.Client;
+using System.Threading;
 
 namespace SpeedTester.Model
 {
@@ -26,7 +27,6 @@ namespace SpeedTester.Model
         protected override Socket InitConnectionSocket(bool nagleAlgorithmEnabled)
         {
             Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-            s.NoDelay = !nagleAlgorithmEnabled;
             return s;
         }
 
@@ -40,6 +40,7 @@ namespace SpeedTester.Model
             byte[] bufferContent = Encoding.UTF8.GetBytes(GenerateContent(bufferSize));
             do
             {
+                Thread.Sleep(10);
                 clientSocket.SendTo(bufferContent, bufferSize, SocketFlags.None, sending_end_points);
             } while (isRunning);
         }

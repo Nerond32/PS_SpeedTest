@@ -15,7 +15,11 @@ namespace SpeedTester
             {
                 DefaultValue = FindResource(typeof(Window))
             });
+            Closing += OnWindowClosing;
         }
-
+        public void OnWindowClosing(object sender, CancelEventArgs e)
+        {
+            Environment.Exit(0);
+        }
     }
 }

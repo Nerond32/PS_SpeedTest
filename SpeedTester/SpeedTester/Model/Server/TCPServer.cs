@@ -15,7 +15,7 @@ namespace SpeedTester
         public Socket InitSocket()
         {
             Socket newSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            IPEndPoint localEndPoint = new IPEndPoint(ipAddress, port);
+            IPEndPoint localEndPoint = new IPEndPoint(IPAddress.Any, port);
             newSocket.Bind(localEndPoint);
             return newSocket;
         }
@@ -25,7 +25,7 @@ namespace SpeedTester
             try
             {
                 serverSocket = InitSocket();
-                serverSocket.Listen(10);
+                serverSocket.Listen(2);
                 while (isRunning)
                 {
                     clientSocket = serverSocket.Accept();
@@ -43,7 +43,7 @@ namespace SpeedTester
                     clientSocket.Close();
                 }
             }
-            catch
+            catch 
             {
                 isRunning = false;
             }
@@ -65,7 +65,7 @@ namespace SpeedTester
             var watch = System.Diagnostics.Stopwatch.StartNew();
             try
             {
-                while (!(clientSocket.Poll(1, SelectMode.SelectRead) && clientSocket.Available == 0))
+                while (!(isRunning == true && clientSocket.Poll(1, SelectMode.SelectRead) && clientSocket.Available == 0))
                 {
                     serverStats.TotalSize = serverStats.TotalSize + dataSize;
                     clientSocket.Receive(fromClient);

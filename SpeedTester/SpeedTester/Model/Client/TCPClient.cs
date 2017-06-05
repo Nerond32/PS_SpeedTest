@@ -3,6 +3,7 @@ using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 
 namespace SpeedTester
 {
@@ -44,6 +45,7 @@ namespace SpeedTester
             byte[] bufferContent = Encoding.UTF8.GetBytes(GenerateContent(bufferSize));
             do
             {
+                Thread.Sleep(10);
                 clientSocket.Send(bufferContent);
             } while (isRunning);
         }
