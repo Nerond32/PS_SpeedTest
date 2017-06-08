@@ -25,7 +25,7 @@ namespace SpeedTester.ViewModel
         private string startStopClientText = "Start";
         private string tcpConnectionText = "TCP: Disconnected";
         private string udpStatusText = "UDP: Stopped";
-        public static IPPortDelegate IpPortDelegate { get => ipPortDelegate; set => ipPortDelegate = value; }
+        public static IPPortDelegate IpPortDelegate { get { return ipPortDelegate; } set { ipPortDelegate = value; } }
         public event PropertyChangedEventHandler PropertyChanged;
         public ICommand StartStopClient { get { return new RelayCommand(StartClients); } }
         private int bufferSize;

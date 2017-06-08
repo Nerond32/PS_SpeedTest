@@ -48,3 +48,24 @@ D:\workspace\PluralSight\ST\SpeedTester\SpeedTester\obj\Debug\View\MainWindow.g.
 D:\workspace\PluralSight\ST\SpeedTester\SpeedTester\obj\Debug\View\MainWindow.baml
 D:\workspace\PluralSight\ST\SpeedTester\SpeedTester\obj\Debug\SpeedTester.csprojResolveAssemblyReference.cache
 D:\workspace\PluralSight\ST\SpeedTester\SpeedTester\obj\Debug\View\Templates\ComboBoxTemplate.baml
+C:\Users\Student\Documents\Visual Studio 2015\Projects\PS_SpeedTest\SpeedTester\SpeedTester\bin\Debug\SpeedTester.exe.config
+C:\Users\Student\Documents\Visual Studio 2015\Projects\PS_SpeedTest\SpeedTester\SpeedTester\obj\Debug\SpeedTester.exe
+C:\Users\Student\Documents\Visual Studio 2015\Projects\PS_SpeedTest\SpeedTester\SpeedTester\obj\Debug\SpeedTester.csprojResolveAssemblyReference.cache
+C:\Users\Student\Documents\Visual Studio 2015\Projects\PS_SpeedTest\SpeedTester\SpeedTester\obj\Debug\View\ClientMenu.g.cs
+C:\Users\Student\Documents\Visual Studio 2015\Projects\PS_SpeedTest\SpeedTester\SpeedTester\obj\Debug\View\MainWindow.g.cs
+C:\Users\Student\Documents\Visual Studio 2015\Projects\PS_SpeedTest\SpeedTester\SpeedTester\obj\Debug\View\ServerMenu.g.cs
+C:\Users\Student\Documents\Visual Studio 2015\Projects\PS_SpeedTest\SpeedTester\SpeedTester\obj\Debug\App.g.cs
+C:\Users\Student\Documents\Visual Studio 2015\Projects\PS_SpeedTest\SpeedTester\SpeedTester\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\Student\Documents\Visual Studio 2015\Projects\PS_SpeedTest\SpeedTester\SpeedTester\obj\Debug\SpeedTester_MarkupCompile.cache
+C:\Users\Student\Documents\Visual Studio 2015\Projects\PS_SpeedTest\SpeedTester\SpeedTester\obj\Debug\SpeedTester_MarkupCompile.lref
+C:\Users\Student\Documents\Visual Studio 2015\Projects\PS_SpeedTest\SpeedTester\SpeedTester\bin\Debug\SpeedTester.exe
+C:\Users\Student\Documents\Visual Studio 2015\Projects\PS_SpeedTest\SpeedTester\SpeedTester\bin\Debug\SpeedTester.pdb
+C:\Users\Student\Documents\Visual Studio 2015\Projects\PS_SpeedTest\SpeedTester\SpeedTester\obj\Debug\App.baml
+C:\Users\Student\Documents\Visual Studio 2015\Projects\PS_SpeedTest\SpeedTester\SpeedTester\obj\Debug\View\ClientMenu.baml
+C:\Users\Student\Documents\Visual Studio 2015\Projects\PS_SpeedTest\SpeedTester\SpeedTester\obj\Debug\View\Templates\ComboBoxTemplate.baml
+C:\Users\Student\Documents\Visual Studio 2015\Projects\PS_SpeedTest\SpeedTester\SpeedTester\obj\Debug\View\MainWindow.baml
+C:\Users\Student\Documents\Visual Studio 2015\Projects\PS_SpeedTest\SpeedTester\SpeedTester\obj\Debug\View\ServerMenu.baml
+C:\Users\Student\Documents\Visual Studio 2015\Projects\PS_SpeedTest\SpeedTester\SpeedTester\obj\Debug\SpeedTester.g.resources
+C:\Users\Student\Documents\Visual Studio 2015\Projects\PS_SpeedTest\SpeedTester\SpeedTester\obj\Debug\SpeedTester.Properties.Resources.resources
+C:\Users\Student\Documents\Visual Studio 2015\Projects\PS_SpeedTest\SpeedTester\SpeedTester\obj\Debug\SpeedTester.csproj.GenerateResource.Cache
+C:\Users\Student\Documents\Visual Studio 2015\Projects\PS_SpeedTest\SpeedTester\SpeedTester\obj\Debug\SpeedTester.pdb

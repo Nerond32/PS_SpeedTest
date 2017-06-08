@@ -175,7 +175,7 @@ namespace SpeedTester.ViewModel
         }
         #endregion 
         public event PropertyChangedEventHandler PropertyChanged;
-        public static IPPortDelegate IpPortDelegate { get => ipPortDelegate; set => ipPortDelegate = value; }
+        public static IPPortDelegate IpPortDelegate { get { return ipPortDelegate; } set { ipPortDelegate = value; } }
         public ICommand StartStopServer { get { return new RelayCommand(Run); } }
 
         private void OnPropertyChanged(string propertyName)
